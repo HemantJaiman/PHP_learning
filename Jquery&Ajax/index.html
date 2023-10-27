@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Form Submission with AJAX</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+<h1>addition form with AJAX</h1>
+
+<form id="calcForm">
+    <label for="num1">Number 1:</label>
+    <input type="text" name="num1" id="num1" required>
+    <br><br>
+    <label for="num2">Number 2:</label>
+    <input type="text" name="num2" id="num2" required>
+    <br><br>
+    <input type="submit" value="Calculate">
+</form>
+
+<div id="resultContainer">
+    
+</div>
+
+<script>
+$(document).ready(function() {
+    $("#calcForm").submit(function(event) {
+        event.preventDefault();
+        
+        // Geting user input
+        var num1 = $("#num1").val();
+        var num2 = $("#num2").val();
+        
+        // sending AJAX request to action.php
+        $.ajax({
+            type: "POST",
+            url: "action.php",
+            data: {
+                num1: num1,
+                num2: num2
+            },
+            success: function(data) {
+                $("#resultContainer").html(data);
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>
